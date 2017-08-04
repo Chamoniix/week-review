@@ -172,8 +172,6 @@ First a server is composed of 2 parts :
 
 The client can then use functions generated corresponding to the operations (eg `soap_call_op1()`). The sample I made is simple but I understood something very importamt : **the majority of the Gsoap part of the ODBC project is auto-generated** and the important part finally isn't that complicated. Moreover, all the handling of symbols and library use is also done by GSoap like the symbole `WITH_OPENSSL` which is part of GSoap compilation.
 
-
-
 ### Verdict
 
 From [GSoap documentation](https://www.genivia.com/doc/soapdoc2.html#tth_sEc19.24) :

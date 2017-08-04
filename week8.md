@@ -158,7 +158,23 @@ Finally I discovered that every step of the authentication using winHTTP is hidd
 
 [Impersonation possible !](https://msdn.microsoft.com/fr-fr/library/windows/desktop/hh227298(v=vs.85%29.aspx)
 
-#### Verdict
+### GSoap
+
+Soap is a **communication protocol**. It is used to **define the format of frames** which will be sent so that both client and server can retrieve the information.
+
+And GSoap is a **compiler** used to create a server or a client.
+
+I did a complete exemple of client server to understand want every files are. I used this [documentation](http://r0d.developpez.com/articles/tuto-gsoap-fr/) to create it. You need to use soapcpp2.exe to generate files for the server and the client. You also need to include `stdsoap2.cpp` and `stdsoap2.h` which are files from the "library".
+
+First a server is composed of 2 parts :
+* the principal loop
+* the operations' definition
+
+The client can then use functions generated corresponding to the operations (eg `soap_call_op1()`). The sample I made is simple but I understood something very importamt : **the majority of the Gsoap part of the ODBC project is auto-generated** and the important part finally isn't that complicated. Moreover, all the handling of symbols and library use is also done by GSoap like the symbole `WITH_OPENSSL` which is part of GSoap compilation.
+
+
+
+### Verdict
 
 From [GSoap documentation](https://www.genivia.com/doc/soapdoc2.html#tth_sEc19.24) :
 

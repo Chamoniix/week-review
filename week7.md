@@ -103,3 +103,6 @@ I think for next week I will try to debug the Data Access Server to see **exactl
 > Look for more information about **httpg**
 
 > For presentation : don't forget to talk about `ImpersonateSecurityContext` from gssapi
+
+
+Projet test gsoap [sample](http://r0d.developpez.com/articles/tuto-gsoap-fr/)

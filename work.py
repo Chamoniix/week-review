@@ -1,23 +1,18 @@
 import random
 import time
 import math
-lettre="eri ieiaaaaaaaeeeeeeeeeuuuuuooooooiiiiiiiiiissssssssssscnr ehlsfqpwqieowe semfpseiuef slajiweucb coeihfsljh feslhf s           "
+lettre="aaabcdeeeeefghiiijklmmnnoooppqrsssttuuuvwxyyz"
+keyWords = ["Building ", "Compressing", "Exctracting", "Processing", "Debug", "Compiling", "Starting", "Analyzing"]
 while(1):
     mot = ""
     l = ""
     phrase = ""
-    k = 1
-    while k != 0 :
+    j = random.randint(0,len(keyWords)-1)
+    phrase = keyWords[j]
+    for k in range(0,random.randint(3,7)) :
         i = random.randint(0,len(lettre)-1)
-        l = lettre[i]
-        mot = mot + l
-        if l == " " :
-            phrase = phrase + mot
-            if len(mot) > 4:
-                phrase = phrase[0:len(phrase)-1] + ".cpp "
-                print(phrase)
-                k=0
+        mot = mot + lettre[i]
 
-
-
-    time.sleep(math.log1p(random.randint(0,3000)/1000))
+    phrase = phrase + " " + mot + ".cpp..."
+    print(phrase)
+    time.sleep(math.log1p(random.randint(0,1000)/1000))

@@ -39,7 +39,6 @@ img {
   font-size: 80%;
 }
 </style>
-
 # OSISoft Internship - Week 8
 
 Here is a quick summary of my eighth week.

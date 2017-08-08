@@ -48,7 +48,7 @@ I still did not found a way to use winHTTP and allowed delegation without trusti
 My priority this week was to understand winHTTP, how does it basically work, and then how it is used in the ODBC client. To accomplish this task, I did several things.
 
 ### Understanding winHTTP an authentication
-First I red the entire [Microsoft article](https://msdn.microsoft.com/en-us/library/windows/desktop/aa382925(v=vs.85&#41;.aspx) about winHTTP which is really complete. It allowed me to learn a lot about the protocol. I also **created my own sample** of connection using Microsoft samples.
+First I red the entire [Microsoft article](https://msdn.microsoft.com/en-us/library/windows/desktop/aa382925) about winHTTP which is really complete. It allowed me to learn a lot about the protocol. I also **created my own sample** of connection using Microsoft samples.
 
 This scheme is a really good overview of the winHTTP sessions :
 ![winhttp](img/winHTTP.png)
@@ -87,7 +87,7 @@ I tried a lot a things to enable this delegation flag. First I read something in
 soap_register_plugin_arg() function, and supply as the argument flags which
 you want to be passed to HttpOpenRequest.
 
-So I through I have to configure it but I didn't know how. Then I found every single [flag](https://msdn.microsoft.com/en-us/library/windows/desktop/aa384066(v=vs.85&#41;.aspx) that you can use with winHTTP. So I tried a lot of them but I never had the delegation allowed. Specially the `WINHTTP_ENABLE_SSL_REVERT_IMPERSONATION` is creating an error but it looks like it could be something I want to enable.
+So I through I have to configure it but I didn't know how. Then I found every single [flag](https://msdn.microsoft.com/en-us/library/windows/desktop/aa384066) that you can use with winHTTP. So I tried a lot of them but I never had the delegation allowed. Specially the `WINHTTP_ENABLE_SSL_REVERT_IMPERSONATION` is creating an error but it looks like it could be something I want to enable.
 
 I also read a really interesting [article](http://microsoft.public.winhttp.narkive.com/X3Ao0QcV/winhttp-credentials-delegation) written by someone trying to use winhttp delegation but not with gsoap and kerberos.
 

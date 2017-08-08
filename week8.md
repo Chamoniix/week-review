@@ -102,7 +102,7 @@ SSL uses two different subprotocol : record and handshake. When the handshake is
 
 #### SSL in our project : openSSL
 
-Now that I had basics, I could try to understand the SSL use in our project. To have a basic sample of openSSL, I used this article from IBM : [article](https://www.ibm.com/developerworks/library/l-openssl/index.html)
+Now that I had basics, I could try to understand the SSL use in our project. To have a basic sample of openSSL, I used [this article from IBM](https://www.ibm.com/developerworks/library/l-openssl/index.html) :
 
 The creation of a basic openSSL connection is done by, first loading the trust store :
 ```C++
@@ -155,7 +155,7 @@ Add secutiry level change test (_winhttp_init()_):
 
 Finally I discovered that every step of the authentication using winHTTP is hidden in micrsoft functions that we can't debug. And the delegation isn't really configure, it is just the default behaviour when the security level is defined to LOW. But I saw one article comparing winHTTP and winINet and we could see that the delegation is handled by winHTTP so this is the second solution :
 
-[Impersonation possible !](https://msdn.microsoft.com/fr-fr/library/windows/desktop/hh227298(v=vs.85%29.aspx)
+[Impersonation possible !](https://msdn.microsoft.com/fr-fr/library/windows/desktop/hh227298(v=vs.85%29.aspx))
 
 ### GSoap
 

@@ -52,12 +52,14 @@ After studying the different options I had last week, it turned out that my best
 
 ### Tracing the connection
 
+#### Using WinHTTP
+
 First, I tried to trace the connection, using **fiddler** on both the ODEBC Client and the DASA and also regarding which connection attempt can I see in the **AF Logs**.
 
 > Note: I use stateless connection so I only see the sessions corresponding to the authentication.
 
 <div class="codeTitle">Request : </div>
-```
+```ruby
 Client :
   gSoap/2.8
 Security :
@@ -65,7 +67,7 @@ Security :
   Authorization Header (Negotiate) appears to contain a Kerberos ticket:
 ```
 <div class="codeTitle">Answer : </div>
-```
+```ruby
 HTTP/1.1 401 Unauthorized :
   Cookies ? Login :
     WWW-Authenticate: Negotiate
@@ -79,7 +81,9 @@ On the data access server, we can see one connection from the ODBC User that sho
 
 Finally I have the same error as for the second hop on the DAS on the AF logs, so the connection is still forwarded even if it does not succeed.
 
-#### Using WinHTTP
+#### Using GSSAPI
+
+**Important :** I never tried to user Fiddler with GSSApi but then the connection isn't working any more ! so I could try a lot of things I only tried with fiddler configured.
 
 
 ## What I have to do

@@ -45,19 +45,22 @@ Here is a quick summary of my ninth week.
 
 ## Where I was
 
-After studying the different options I had last week, it turned out that my best chances seem to be using winHTTP with the GSoap plugin, but I will have to find new possibilities to configure this plugin.
-
+After studying the different options I had last week, it turned out that my best chances seem to be using winHTTP with the GSoap plugin, but I will have to find new possibilities to configure this plugin. Moreover, after this week I will only have one week and half before the end of this internship, so I also should start preparing my presentation for the company and gathering information for my school report.
 
 ## What I did
+
+First thing I did this week was to trace the connection when it is using winHTTP to understand where is this error coming from and what does the request look like.
 
 ### Tracing the connection
 
 #### Using WinHTTP
 First, I tried to trace the connection, using **fiddler** on both the ODEBC Client and the DASA and also regarding which connection attempt can I see in the **AF Logs**.
 
-> Note: I use stateless connection so I only see the sessions corresponding to the authentication.
+> Note: Using stateless connection is really useful to only the sessions corresponding to the authentication.
 
-<div class="codeTitle">Request : </div>
+So here are the first two sessions we can see when trying a connection :
+
+<div class="codeTitle">Request : ODBC -> DAS</div>
 ```
 Client :
   gSoap/2.8
@@ -65,7 +68,7 @@ Security :
   Authorization: Negociate
   Authorization Header (Negotiate) appears to contain a Kerberos ticket:
 ```
-<div class="codeTitle">Answer : </div>
+<div class="codeTitle">Answer : DAS -> ODBC</div>
 ```
 HTTP/1.1 401 Unauthorized :
   Cookies ? Login :
@@ -78,13 +81,18 @@ On the data access server, we can see one connection from the ODBC User that sho
 
 ![logon](img/logon.png)
 
-Finally I have the same error as for the second hop on the DAS on the AF logs, so the connection is still forwarded even if it does not succeed.
+Finally, looking at the AF logs, I found the same failed logon as for the second hop on the DAS. The connection is then still forwarded even if it does not succeed.
 
-### Building demo client Microsoft SSPI SECURE32.dll
+#### Using GSSAPI
+
+I wanted to do the exact same thing when building the project with gssapi, but it turns out that the connection was impossible when using Fiddler's proxy, the delegation wasn't working anymore. So, before trying to find another was to see this communication, I thought about something : If I had the same behavior when building winHTTP and using fiddler ? Maybe the connection have been working but I wouldn't have seen it. So I then tried again every options that I tried before but without Fiddler's proxy enabled.
+
+I disabled Fiddler on both ODBC and DAS and try everything again only using windows security logs from the event viewer.
 
 ### Preparing presentation
 
-As I will have to present my work and my subject to the company, I also decided this week to start preparing this presentation. The plan will surely look like something like this :
+Before I try anything else, as I will have to present my work and my subject to the company, I also decided to start preparing this presentation. The plan will surely look like something like this :
+
 ---
 I   - Introdution
   1. Who am I ?
@@ -111,19 +119,22 @@ V   - What did I learn
   1. Technical
   2. Relational
   3. Organizationel
---- 
+---
 VI  - Q&A
 
+---
+
+I knew that I will be talking a lot about Kerberos, for my presentation in the company and also at school, so I wanted to be really clear about how it works and what is each component's role. So I went back to Kerberos documentation as I did the first weeks, but then everything wasn't clear for me, I think I would understand way more now that I am more familiar with it.
 
 #### Kerberos overview
 
 Just to remember and clarify what I know from Kerberos, I read some documentation and wrote a small overview :
 
-Three-headed guard dog of Hades Greek mythology : Third part = TDC
+*kerberos* Three-headed guard dog of Hades (Greek mythology) : Third part = KDC
 ##### It allows:
 *	Authentication
-*	Ticket
-*	No password sending
+*	Tickets
+*	No password sending on network
 
 #### It is composed of:
 *	Kerbors realm
@@ -133,10 +144,12 @@ Three-headed guard dog of Hades Greek mythology : Third part = TDC
   *	Clients
   *	Services
 
-Ticket = proof of identity
-One service = one ticket
+Ticket = proof of identity,
+One service = one ticket,
 Created localy
 Use ticket instead of password (Trusted connection)
+
+**Only the computer knowing you password can use your ticket** witch means you and the KDC who is the DC.
 
 #### Step 1 – You – Authentication Server
 
@@ -174,4 +187,8 @@ gss_init_sec_context(&minStat, &ctx, servName, &gss_krb5_mech_oid_desc, ...);
 ```
 
 
+> My visual license expired which took quite a while to save and reinstall everything on my 3 VM using VS.
+
 ## What I have to do
+
+### Building demo client Microsoft SSPI SECURE32.dll

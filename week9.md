@@ -54,6 +54,7 @@ First thing I did this week was to trace the connection when it is using winHTTP
 ### Tracing the connection
 
 #### Using WinHTTP
+
 First, I tried to trace the connection, using **fiddler** on both the ODEBC Client and the DASA and also regarding which connection attempt can I see in the **AF Logs**.
 
 > Note: Using stateless connection is really useful to only the sessions corresponding to the authentication.
@@ -61,15 +62,18 @@ First, I tried to trace the connection, using **fiddler** on both the ODEBC Clie
 So here are the first two sessions we can see when trying a connection :
 
 <div class="codeTitle">Request : ODBC -> DAS</div>
-```
+```ruby
+
 Client :
   gSoap/2.8
 Security :
   Authorization: Negociate
   Authorization Header (Negotiate) appears to contain a Kerberos ticket:
 ```
+
 <div class="codeTitle">Answer : DAS -> ODBC</div>
-```
+```ruby
+
 HTTP/1.1 401 Unauthorized :
   Cookies ? Login :
     WWW-Authenticate: Negotiate

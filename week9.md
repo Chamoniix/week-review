@@ -187,10 +187,60 @@ Then :
 
 
 ``` c++
-gss_init_sec_context(&minStat, &ctx, servName, &gss_krb5_mech_oid_desc, ...);
+majStat = gss_import_name(&minStat,           // Status returned
+                          &serviceNameBuffer, // String that contains de service name
+                          &oid,               // Name format : service/host@realm
+                          &gssServiceName);   // Internal name returned
+```
+``` c++
+majStat = gss_init_sec_context( &minStat,                 // Status returned
+                                GSS_C_NO_CREDENTIAL,      // Default principal
+                                &ctx,                     // Context handle
+                                gssServiceName,           // Internal service name
+                                &gss_krb5_mech_oid_desc,  // Service name Format
+                                GSS_C_DELEG_FLAG,         // Request flags
+                                GSS_C_INDEFINITE,         // Context time limit
+                                GSS_C_NO_CHANNEL_BINDINGS,// Channel bindings
+                                GSS_C_NO_BUFFER,          // Token to send
+                                nullptr,                  // Mecanism (not used)
+                                &outputToken,             // The ticket
+                                nullptr,                  // Actual flags (returned)
+                                nullptr);                 // Context valid time
+```
+```c++
+majStat = gss_acquire_cred(&minStat, // Output minor error
+          GSS_C_NO_NAME, // Internal server name imported above (GSS_C_NO_NAME)
+          GSS_C_INDEFINITE, // Length of time : 0 for maximum
+          desiredMechs, // Underlaying machanisme witch will use the credentials
+          GSS_C_BOTH,       // How the credentials will be used
+          server_creds,     // Output credentials handler
+          NULL,             // Output real OID allowed
+          NULL);            // Output real time the credentials will be valids
+
+```
+```c++
+gss_accept_sec_context(&min_stat,
+    &context,
+    GSS_C_NO_CREDENTIAL,
+    &recv_tok,
+    GSS_C_NO_CHANNEL_BINDINGS,
+    &client,
+    &doid,
+    &send_tok,
+    &ret_flags,
+    NULL,     /* ignore time_rec */
+    NULL);    /* ignore del_cred_handle */
+```
+```c++
+clock_t tStart = clock();
+majStat = gss_init_sec_context(...);    //10 sec
+(clock() - tStart) / CLOCKS_PER_SEC;  
 ```
 
-
+```ruby
+service@hostname
+service\hostname@realm
+```
 > My visual license expired which took quite a while to save and reinstall everything on my 3 VM using VS.
 
 ## What I have to do

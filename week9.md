@@ -75,7 +75,7 @@ Security :
 ```ruby
 
 HTTP/1.1 401 Unauthorized :
-  Cookies ? Login :
+  Cookies / Login :
     WWW-Authenticate: Negotiate
     WWW-Authenticate: Basic realm=""
     connection: close
@@ -185,6 +185,7 @@ Then :
 4.	You check
 5.	Then can use this ticket which is cached
 
+#### Review of important functions gssapi
 
 ``` c++
 majStat = gss_import_name(&minStat,           // Status returned
@@ -245,4 +246,10 @@ service\hostname@realm
 
 ## What I have to do
 
-### Building demo client Microsoft SSPI SECURE32.dll
+Building demo client Microsoft SSPI SECURE32.dll
+
+finish and rehearse the presentation
+
+Prepare and schedule the webex
+
+have a plan for my school report 
